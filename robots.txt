@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://hillcountryplumbingtx.com/sitemap.xml
+
+Sitemap: https://txkerrvilleplumbing.com/sitemap.xml
