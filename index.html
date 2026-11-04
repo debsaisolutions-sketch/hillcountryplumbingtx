@@ -38,10 +38,25 @@
         .blog-link { background: #f0f9ff; padding: 20px; border-radius: 6px; text-decoration: none; color: #1a3a52; transition: transform 0.2s, box-shadow 0.2s; }
         .blog-link:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .blog-link h4 { color: #f59e0b; margin-bottom: 8px; }
-        form { background: #f9fafb; padding: 30px; border-radius: 8px; max-width: 500px; margin: 20px auto; }
+        form { background: #f9fafb; padding: 30px; border-radius: 8px; max-width: 500px; margin: 20px auto; position: relative; }
         form input, form textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
         form button { background: #f59e0b; color: white; padding: 15px 30px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; }
         form button:hover { background: #d97706; }
+        form button:disabled { opacity: 0.65; cursor: wait; }
+        .hp-field {
+            position: absolute !important;
+            left: -10000px !important;
+            top: 0 !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        .form-status { text-align: center; margin-top: 12px; font-weight: 600; }
+        .form-status:empty { display: none; }
+        .form-status.ok { color: #166534; }
+        .form-status.error { color: #9f1239; }
         footer { background: #1a3a52; color: white; text-align: center; padding: 30px 0; margin-top: 40px; }
         .sticky-call { position: sticky; top: 0; background: #f59e0b; color: white; padding: 15px; text-align: center; font-weight: bold; z-index: 100; }
         .sticky-call a { color: white; text-decoration: none; }
@@ -174,13 +189,21 @@
         <section id="contact">
             <h2>Get Your Free Plumbing Estimate</h2>
             <p style="text-align: center; margin-bottom: 20px;">Fill out the form below and we'll contact you within 1 hour during business hours.</p>
-            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <input type="tel" name="phone" placeholder="Your Phone Number" required>
+            <form id="lead-form">
+                <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+                <input type="email" name="email" placeholder="Your Email" autocomplete="email" required>
+                <input type="tel" name="phone" placeholder="Your Phone Number" autocomplete="tel" required>
                 <textarea name="message" placeholder="Describe your plumbing issue (leak, clog, water heater)..." rows="5" required></textarea>
+                <div class="hp-field" aria-hidden="true">
+                    <label for="company_website">Company website</label>
+                    <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                </div>
                 <button type="submit">Request Free Estimate</button>
+                <p class="form-status" role="status" aria-live="polite"></p>
             </form>
+            <noscript>
+                <p style="text-align: center; margin-top: 12px;">This form needs JavaScript. Call <a href="tel:+18303567319">(830) 356-7319</a> and we'll help right away.</p>
+            </noscript>
         </section>
 
         <section>
@@ -253,5 +276,6 @@
   })();
   </script>
   <script src="https://www.tradedeskpro.com/js/tdp-lead-attribution.js" defer></script>
+  <script src="/js/tdp-leads.js" defer></script>
 </body>
 </html>
